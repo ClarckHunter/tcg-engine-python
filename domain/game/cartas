@@ -1,0 +1,113 @@
+"gran cannon Magico"
+
+damage 20
+vida 5
+costo 8
+
+Al golpear
+por cada espacio vacio esta carta gana 5 de damage, si gana 20 de daño adicional pega directo al enemigo
+
+--------------------------------------------------
+
+"Artillero Magico"
+
+damage 2
+vida 8
+costo 3
+
+Cast
+Al tener 4 copias de Artillero Magico sacrificalas y invoca a un Gran cannon Magico
+
+--------------------------------------------------
+
+"Aventurero inexperto"
+
+damage 1
+vida 2
+costo 1
+
+Al atacar
+Roba una carta
+
+--------------------------------------------------
+
+"Aventurero oportunista"
+
+damage 1
+vida 2
+costo 1
+
+Al colocar
+Puedes descartar una carta, si la descartas puedes elegir una carta de costo menor a 5
+
+--------------------------------------------------
+
+"Clerigo joven"
+
+damage 1
+vida 3
+costo 2
+
+Al iniciar una ronda
+Cada carta en el campo aliado es curada 1 punto de salud
+
+--------------------------------------------------
+
+"El alquimista"
+
+damage 1
+vida 2
+costo 1
+
+Descarta 2 cartas para tener 3 de mana
+
+--------------------------------------------------
+
+"Bebe dragon"
+
+damage 4
+vida 2
+costo 2
+
+--------------------------------------------------
+
+"Soldado"
+
+damage 1
+vida 3
+costo 1
+
+--------------------------------------------------
+
+"La armada"
+
+damage 1
+vida 2
+costo 1
+
+Al jugar desde la mano
+Invoca 3 soldados 
+
+--------------------------------------------------
+
+"Escudero"
+
+damage 2
+vida 5
+costo 2
+
+Al jugar desde la mano
+pudes descartar una carta de la mano
+si la desacartas puedes robar una carta
+
+--------------------------------------------------
+
+"Araña"
+
+damage 5
+vida 7
+costo 5
+
+Al colocarse
+Invoca un a araña en los espcios
+adyacentes si esta vaci
