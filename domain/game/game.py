@@ -1,6 +1,6 @@
 from .stateMachine import StateMachine
 from .events import EventManager
-from .game_interfaces.game_interface import GameInterface
+from .gameInterfaces.gameInterface import GameInterface
 
 from .player import Player, Camp, Deck
 

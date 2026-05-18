@@ -5,7 +5,7 @@ class CardQuery:
         if include_empty:
             self._cards_spaces = cards_spaces
         else:
-            self._cards_spaces = [s for s in cards_spaces if s.card is not None]
+            self._cards_spaces = [s for s in cards_spaces if s.has_card()]
 
         self._include_empty = include_empty
         
@@ -59,3 +59,10 @@ class CardQuery:
     
     def al_least(self, n:int):
         return (self.count() >= n) 
+    
+    def cards(self):
+        result = []
+
+        for card in self._cards_spaces:
+            result.append(card)
+        return result

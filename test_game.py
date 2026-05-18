@@ -1,6 +1,4 @@
-from domain.game.game import Game
-
-from portafolio1.domain.game.player.player import Player
+from domain.game import Game, Player
 
 from domain.cards.card import Card
 

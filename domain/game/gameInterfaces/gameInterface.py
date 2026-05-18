@@ -1,4 +1,5 @@
-from .camp_interface import CampInterface
+from .campInterface import CampInterface
+from .cardQuery import CardQuery
 
 from typing import TYPE_CHECKING
 
@@ -14,5 +15,3 @@ class GameInterface:
         self.current_turn = game.turn_number
         
         self.current_face = game.get_current_fase()
-
-    

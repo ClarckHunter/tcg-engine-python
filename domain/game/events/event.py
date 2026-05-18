@@ -1,7 +1,7 @@
-from ..game_interfaces.game_interface import GameView
+from ..gameInterfaces.gameInterface import GameInterface
 
 
 class Event:
     
-    def __init__(self, game_view:GameView):
+    def __init__(self, game_view:GameInterface):
         self.game_view = game_view
