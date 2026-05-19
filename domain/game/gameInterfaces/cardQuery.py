@@ -64,5 +64,5 @@ class CardQuery:
         result = []
 
         for card in self._cards_spaces:
-            result.append(card)
+            result.append(card.get_card())
         return result
