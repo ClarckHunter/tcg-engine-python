@@ -1,4 +1,5 @@
 from ..gameInterfaces import GameInterface
+from ..gameInterfaces import CardResolver
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -15,10 +16,10 @@ class Action:
         
         self.on_resolve()
 
-    def can_resolve(self, game_interface:GameInterface)->bool:
+    def can_resolve(self)->bool:
         return True
     
-    def on_resolve(self, game:Game)->bool:
+    def on_resolve(self)->bool:
         pass
 
     

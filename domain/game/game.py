@@ -8,6 +8,8 @@ from ..cards import Card, CardSpace
 
 from ..exeptions import InvalidMove
 
+from .actionStack import Action, ActionStack
+
 #TO DO refactorizar, cambiar el waiting player y current a enemy y player para mejor legibilidad
 
 
@@ -23,6 +25,8 @@ class Game:
         self.state_machine = StateMachine()
         self.event_manager = EventManager()
         self.camp = Camp()
+
+        self.action_stack = ActionStack()
         
 
     #funcion que se llama al inicializar una partida
@@ -31,6 +35,7 @@ class Game:
         self.player_2 = player2
 
         self.current_player = self.player_1
+        self.waiting_player = self.player_2
         return self
         
 
@@ -53,19 +58,22 @@ class Game:
         card.on_place_card(self.create_game_interface())
         
 
-    def activate_effect(self, card:Card, player:Player, name):
-        card.activate_effect(name)
+    def activate_effect(self, card:Card, player:Player, effect_name:str):
+        card.activate_effect(effect_name)
         
 
     def finish_game():
         pass
 
+    def push_action(self, action:Action):
+        self._action_stack.push(action)
 
     def create_game_interface(self)->GameInterface:
         return GameInterface(self)
 
 
     #valida si se puede jugar la carta
+    #esto deberia de ir en su clase propia
     def validate_card_played(self, card:Card, player:Player, card_space:CardSpace):
         if player is not self.current_player:
             raise InvalidMove("Is not your turn")
@@ -77,6 +85,9 @@ class Game:
             raise InvalidMove("Your not in preparation day")
         
     
+    # region getters
+
+
     def get_player_id(self)->int:
         if self.current_player is self.player_1: return 1
         else: return 2
@@ -92,6 +103,7 @@ class Game:
         else:
             return current_camp["player_2"]
         
+    
     def get_enemy_camp(self)->dict:
         current_camp = self.camp.get_camp()
 
@@ -99,3 +111,5 @@ class Game:
             return current_camp["player_1"]
         else:
             return current_camp["player_2"]
+        
+    # endregion

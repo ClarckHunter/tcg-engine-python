@@ -31,5 +31,5 @@ class Card:
     def on_defeat(self):
         pass
 	
-
-
+    def on_die(self):
+        pass

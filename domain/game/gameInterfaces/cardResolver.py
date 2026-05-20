@@ -21,4 +21,4 @@ class CardResolver:
     def damage_card(card:Card, damage):
         card.health -= damage
         if card.health <= 0:
-            card.die()
+            card.on_die()
