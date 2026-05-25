@@ -33,6 +33,10 @@ class Card:
         if self.health <= 0:
             self.die()
 
+    def die(self):
+        self.on_die()
+        self.card_space.card_die()
+
     def on_cast(self, effect_name:str):
         effect = self.cast[effect_name]
         

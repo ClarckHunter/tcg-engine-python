@@ -7,4 +7,4 @@ class ActionActivateEffect(Action):
         self.ability = ability
 
     def on_resolve(self):
-        self.ability.try_apply()
+        self.ability.apply()

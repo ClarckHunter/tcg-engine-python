@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from ..card import Card
 
 class Ability():
-    def __init__(self, conditions:list[Condition], effects:list[Effect], selects:list[Select]):
+    def __init__(self, conditions:list[Condition], effects:dict[str, Effect], selects:list[Select]):
         self.conditions = conditions
         self.effects = effects
         
@@ -33,4 +33,6 @@ class Ability():
                 return False
         return True
 
-    
+    def apply(self):
+        for effect in self.effects:
+            effect.apply()

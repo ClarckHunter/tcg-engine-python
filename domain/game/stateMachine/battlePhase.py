@@ -16,6 +16,7 @@ class BattlePhase(Phase):
     def attackCard(self, target:CardSpace, source:CardSpace):
         source.can_attack = False
         damage = source.get_ammount_damage()
+        
         self._game.action_stack.push(
             ActionAttack(target, source, damage)
         )

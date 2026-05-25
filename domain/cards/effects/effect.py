@@ -20,16 +20,27 @@ class Effect(ABC):
         self.targets:list[Card] = []
     
     
-    def apply(self, game_interface:GameInterface, cards:list[Card] | None = None):
-        self._effect()
+    def apply(self, game_interface:GameInterface):
+        self._effect(game_interface)
     
     def set_targets(self, cards:list[Card]):
         for card in cards:
             self.targets.append(card)
 
-    def create_effect(self)->Effect:
+
+    def create_effect(self)->'Effect':
         return deepcopy(self)
+
+    def _copy(self)->'Effect':
+        new_effect = self.__class__(select = self.select)
+        self._copy_extra_atributes(new_effect)
+        return new_effect
+
+
 
     @abstractmethod
     def _effect(self):
+        pass
+
+    def _copy_extra_atributes(self, new_effect:'Effect'):
         pass
