@@ -10,6 +10,6 @@ class EffectAddDamage(Effect):
         self.add_damage = add_damage
 
 
-    def apply(self, game_interface, cards:list[Card]):
-        for card in cards:
-            card.add_damage(self.add_damage)
+    def _effect(self):
+        for target in self.targets:
+            target.damage += self.add_damage

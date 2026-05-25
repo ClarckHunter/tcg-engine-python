@@ -23,3 +23,6 @@ class CardSpace:
     def has_card(self)->bool:
         if self.card is None: return False
         else: return True
+
+    def card_die():
+        pass
