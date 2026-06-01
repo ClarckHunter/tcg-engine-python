@@ -3,6 +3,8 @@ from ..effects import Effect
 from ..selects import Select
 from ...game import GameInterface
 
+from ...game.actionStack import ActionActivateEffect
+
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -11,14 +13,11 @@ if TYPE_CHECKING:
 class Ability():
     def __init__(self, conditions:list[Condition], effects:dict[str, Effect], selects:list[Select]):
         self.conditions = conditions
-        self.effects = effects
+        
         
 
-    def create_effect(self, name:str, targets:list[Card])->Effect:
-        effect:Effect = self.effects[name].create_effect()
-        if targets is not None:
-            effect.set_targets(targets)
-        return effect
+    def create_acton(self)->ActionActivateEffect:
+        
         
     def get_select(self, name:str)->Select:
         select:Select = self.effects[name].select

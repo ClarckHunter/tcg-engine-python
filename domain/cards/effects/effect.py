@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from copy import deepcopy
 
 from ...game import GameInterface
 from ..selects import Select
@@ -28,19 +27,6 @@ class Effect(ABC):
             self.targets.append(card)
 
 
-    def create_effect(self)->'Effect':
-        return deepcopy(self)
-
-    def _copy(self)->'Effect':
-        new_effect = self.__class__(select = self.select)
-        self._copy_extra_atributes(new_effect)
-        return new_effect
-
-
-
     @abstractmethod
     def _effect(self):
-        pass
-
-    def _copy_extra_atributes(self, new_effect:'Effect'):
         pass

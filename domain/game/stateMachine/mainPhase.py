@@ -4,7 +4,7 @@ from .stateMachine import StateMachine
 
 from ...cards import Card, CardSpace
 from ...cards.abilitys import Ability
-from ..actionStack import ActionPlayCard, ActionActivateEffect
+from ..actionStack import ActionPlayCard, ActionActivateAbility
 
 
 from ..events import EventMain
@@ -25,7 +25,7 @@ class MainPhase(Phase):
         
     def activate_hability(self, ability:Ability):
         self._action_stack.push(
-            ActionActivateEffect(ability)
+            ActionActivateAbility(ability)
         )
         
 
