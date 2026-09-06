@@ -1,4 +1,10 @@
-from ...game import GameInterface
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from ...game import GameInterface
+
 #clase 
 class Condition:
     def __init__(self, *args, **kwargs):

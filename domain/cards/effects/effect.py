@@ -1,6 +1,6 @@
+from __future__ import annotations
 from abc import ABC, abstractmethod
 
-from ...game import GameInterface
 from ..selects import Select
 
 from ...game.gameInterfaces import CardResolver
@@ -9,6 +9,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from ..card import Card
+    from ...game import GameInterface
 
 '''
 Clase encargada de guardar la logica del efecto y los targets

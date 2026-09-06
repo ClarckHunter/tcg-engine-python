@@ -1,1 +1,1 @@
-from ability import Ability
+from .ability import Ability

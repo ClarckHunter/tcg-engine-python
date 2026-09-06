@@ -1,6 +1,13 @@
+from __future__ import annotations
+
 from .action import Action
 from ..gameInterfaces import CardResolver
-from ...cards import CardSpace
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from ...cards import CardSpace
+
 
 class ActionAttack(Action):
     def __init__(self, target:CardSpace, source:CardSpace, damage:int):

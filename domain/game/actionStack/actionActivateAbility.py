@@ -1,5 +1,13 @@
+from __future__ import annotations
+
 from .action import Action
-from ...cards.abilitys import Ability
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from ...cards.abilitys import Ability
+
+
 
 class ActionActivateAbility(Action):
     def __init__(self, ability:Ability):

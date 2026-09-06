@@ -1,14 +1,16 @@
+from __future__ import annotations
 from ..conditions import Condition
 from ..effects import Effect
 from ..selects import Select
-from ...game import GameInterface
 
-from ...game.actionStack import ActionActivateEffect
+
+from ...game.actionStack import ActionActivateAbility
 
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from ..card import Card
+    from ...game import GameInterface
 
 class Ability():
     def __init__(self, conditions:list[Condition], effects:dict[str, Effect], selects:list[Select]):
@@ -16,8 +18,8 @@ class Ability():
         
         
 
-    def create_acton(self)->ActionActivateEffect:
-        
+    def create_acton(self)->ActionActivateAbility:
+        pass
         
     def get_select(self, name:str)->Select:
         select:Select = self.effects[name].select

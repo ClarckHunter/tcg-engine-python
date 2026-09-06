@@ -1,4 +1,8 @@
-from ...cards import CardSpace
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from ...cards import CardSpace
 
 class CardQuery:
     def __init__(self, cards_spaces:list[CardSpace], include_empty=False):

@@ -1,6 +1,10 @@
-from ...game import GameInterface
-from ..card import Card
+from __future__ import annotations
 from ...game.gameInterfaces import CardQuery
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from ...game import GameInterface
+    from ..card import Card
 
 class Select:
 

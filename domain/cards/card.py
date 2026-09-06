@@ -1,12 +1,13 @@
+from __future__ import annotations
 from abc import ABC, abstractmethod
 
 from .abilitys import Ability
-from ..game import GameInterface
 
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from .cardSpace import CardSpace
+    from ..game import GameInterface
 
 class Card:
     #los efectos y condisiones se instancian en otra clase

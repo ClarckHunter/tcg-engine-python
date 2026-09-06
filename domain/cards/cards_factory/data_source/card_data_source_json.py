@@ -1,10 +1,12 @@
 from . import CardDataSource
 import json
+import os
 
 class CardDataSourceJson(CardDataSource):
     def __init__(self):
         self.json_rute:str
 
 
-    def get_cards():
-        pass
+    @classmethod
+    def search_card(self, card_name):
+        return super().search_card(card_name)

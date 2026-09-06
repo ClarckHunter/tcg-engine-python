@@ -1,4 +1,4 @@
-from .stateMachine import StateMachine
+from .phases import StateMachine
 from .events import EventManager
 from .gameInterfaces.gameInterface import GameInterface
 

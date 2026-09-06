@@ -1,3 +1,4 @@
+from __future__ import annotations
 from .cardQuery import CardQuery
 
 from typing import TYPE_CHECKING

@@ -6,8 +6,8 @@ class Player:
     
 
 
-    def __init__(self):
-        self.deck = Deck()
+    def __init__(self, deck:Deck):
+        self.deck = deck
         self.hand = []
         self.turn: bool = False
         self.pieces:int = 0

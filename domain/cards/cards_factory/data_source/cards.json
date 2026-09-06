@@ -1,0 +1,21 @@
+{
+  "id": "arana_001",
+  "name": "Araña",
+  "card_type": "creature",
+  "description": "Al colocarse, invoca arañas en espacios adyacentes vacíos.",
+  "cost": { "mana": 5, "metal": 0 },
+  "stats": { "damage": 5, "health": 7 },
+  "abilities": [
+    {
+      "trigger": "on_place",
+      "conditions": [],
+      "target": { "type": "self" },
+      "effects": [
+        {
+          "type": "summon_adjacent",
+          "params": { "card_id": "arana_001", "max_spaces": 2 }
+        }
+      ]
+    }
+  ]
+}

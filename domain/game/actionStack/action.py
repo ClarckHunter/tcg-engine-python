@@ -1,3 +1,4 @@
+from __future__ import annotations
 from ..gameInterfaces import GameInterface
 from ..gameInterfaces import CardResolver
 from typing import TYPE_CHECKING

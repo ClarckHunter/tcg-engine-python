@@ -1,3 +1,4 @@
+from __future__ import annotations
 from .action import Action
 from .actionStack import ActionStack
 from ..gameInterfaces import GameInterface

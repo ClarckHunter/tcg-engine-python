@@ -1,10 +1,11 @@
+from __future__ import annotations
 from typing import TYPE_CHECKING
-from ..game import Game
 from ..player import Player
 from ..events import Event
 
 if TYPE_CHECKING:
     from .stateMachine import StateMachine
+    from ..game import Game
 
 class Phase:
     def __init__(self, state_machine:StateMachine, game:Game):

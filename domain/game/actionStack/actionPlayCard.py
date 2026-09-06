@@ -1,6 +1,13 @@
+from __future__ import annotations
+
 from .action import Action
-from ...cards import CardSpace
-from ...cards import Card
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from ...cards import Card
+    from ...cards import CardSpace
+
 
 class ActionPlayCard(Action):
     def __init__(self, card_space:CardSpace, Card:Card):
