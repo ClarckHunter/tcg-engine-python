@@ -1,5 +1,5 @@
 from .phase import Phase
-from ..game import Game
+#from ..game import Game
 
 from ..events import EventMana
 from .mainPhase import MainPhase
@@ -7,7 +7,7 @@ from .mainPhase import MainPhase
 
 
 class ManaPhase(Phase):
-    def __init__(self, state_machine, game:Game):
+    def __init__(self, state_machine, game):
         super().__init__(state_machine, game)
 
     def start(self):

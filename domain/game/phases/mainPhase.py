@@ -1,6 +1,8 @@
+from __future__ import annotations
 from .phase import Phase
 from .stateMachine import StateMachine
 
+from typing import TYPE_CHECKING
 
 from ...cards import Card, CardSpace
 from ...cards.abilitys import Ability
@@ -8,7 +10,10 @@ from ..actionStack import ActionPlayCard, ActionActivateAbility
 
 
 from ..events import EventMain
-from .battlePhase import BattlePhase
+
+
+if TYPE_CHECKING:
+    from .battlePhase import BattlePhase
 
 class MainPhase(Phase):
     def __init__(self, state_machine, game):
@@ -38,3 +43,6 @@ class MainPhase(Phase):
         player_camp = self._game.get_player_camp()
         for card_space in player_camp:
             card_space.can_attack = True
+
+    def finish():
+        pass

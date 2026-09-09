@@ -1,3 +1,4 @@
+from __future__ import annotations
 from .phase import Phase
 
 from typing import TYPE_CHECKING
@@ -17,10 +18,9 @@ class StateMachine:
         self.current_state:Phase
  
     def start_state_machine(self, game):
-        self.current_state = DrawPhase(self, game)
-        self.state.start()
+        self.current_state.start()
 
     def change_state(self, new_phase:Phase):
-        self.state.finish()
-        self.state = new_phase
-        self.state.start()
+        self.current_state.finish()
+        self.current_state = new_phase
+        self.current_state.start()

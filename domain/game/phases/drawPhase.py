@@ -1,11 +1,11 @@
 from .phase import Phase
-from ..game import Game
+#from ..game import Game
 from .manaPhase import ManaPhase
 
 from ..events import EventDraw
 
 class DrawPhase(Phase):
-    def __init__(self, state_machine, game:Game):
+    def __init__(self, state_machine, game):
         super().__init__(state_machine, game)
 
 

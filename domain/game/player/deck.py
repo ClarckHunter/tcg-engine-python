@@ -13,7 +13,7 @@ class Deck:
     
     #permite robar la carta del tope del deck
     def draw(self):
-        pass
+        return self.actual_deck.pop()
         #roba la carta del tope del deck y la borra 
     
 

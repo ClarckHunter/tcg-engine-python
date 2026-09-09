@@ -1,13 +1,15 @@
 from __future__ import annotations
+from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 from ..player import Player
 from ..events import Event
+
 
 if TYPE_CHECKING:
     from .stateMachine import StateMachine
     from ..game import Game
 
-class Phase:
+class Phase(ABC):
     def __init__(self, state_machine:StateMachine, game:Game):
         self._state_machine = state_machine
         self._game = game
@@ -20,10 +22,11 @@ class Phase:
         self._action_stack = game.action_stack
 
         
-
+    @abstractmethod
     def start(self):
         pass
 
+    @abstractmethod
     def finish(self):
         pass
 

@@ -29,7 +29,10 @@ class Player:
         else: return False
 
     def draw(self, amoun:int):
-        self.deck.draw()
+        for i in range(amoun):
+            self.hand.append(
+                self.deck.draw()
+            )
 
     def load_mana(self):
         pass

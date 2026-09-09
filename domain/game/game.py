@@ -1,4 +1,6 @@
-from .phases import StateMachine
+from .phases import StateMachine as PhaseManager
+from .phases import MainPhase
+
 from .events import EventManager
 from .gameInterfaces.gameInterface import GameInterface
 
@@ -22,7 +24,8 @@ class Game:
         self.player_1:Player
         self.player_2:Player
 
-        self.state_machine = StateMachine()
+        self.phase_manager = PhaseManager()
+
         self.event_manager = EventManager()
         self.camp = Camp()
 
@@ -36,6 +39,17 @@ class Game:
 
         self.current_player = self.player_1
         self.waiting_player = self.player_2
+
+        #unicamente para tests
+        self.player_1.draw(5)
+        self.player_2.draw(5)
+
+
+        main_phase = MainPhase(self.phase_manager, self)
+        
+        self.phase_manager.current_state = main_phase
+        self.phase_manager.start_state_machine(self)
+
         return self
         
 
@@ -51,11 +65,12 @@ class Game:
             self.turn_number += 1
 
     #esta funcion se llama desde el game service para jugar la carta, valida si la carta es
-    #jugable
+    #jugable, coloca la carta y llama al efecto on_place
     def play_card(self, card:Card, player:Player, card_space:CardSpace):
         self.validate_card_played(card, player, card_space)
-        self.camp.set_card(card, self.get_player_id())
-        card.on_place_card(self.create_game_interface())
+        card_space.set_card(card)
+        ctxt = {}
+        card.on_place_card(ctxt, self.create_game_interface())
         
 
     def activate_effect(self, card:Card, player:Player, effect_name:str):
@@ -79,10 +94,10 @@ class Game:
             raise InvalidMove("Is not your turn")
         if not player.is_card_in_hand(card):
             raise InvalidMove("You dont have this card in your hand")
-        if not self.camp.is_card_space_empty(player, card_space):
+        if not card_space.is_empty():
             raise InvalidMove("No space to play card")
-        if not self.state_machine.event("PlayCard"):
-            raise InvalidMove("Your not in preparation day")
+        #if not self.phase_manager.current_state == MainPhase()
+        #    raise InvalidMove("Your not in preparation day")
         
     
     # region getters
@@ -93,7 +108,7 @@ class Game:
         else: return 2
 
     def get_current_fase(self):
-        return self.state_machine.current_state
+        return self.phase_manager.current_state
         
     def get_player_camp(self)->dict:
         current_camp = self.camp.get_camp()
