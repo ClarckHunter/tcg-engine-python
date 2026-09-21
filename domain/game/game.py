@@ -1,130 +1,81 @@
-from .phases import StateMachine as PhaseManager
-from .phases import MainPhase
-
-from .events import EventManager
-from .gameInterfaces.gameInterface import GameInterface
-
-from .player import Player, Camp, Deck
-
-from ..cards import Card, CardSpace
-
-from ..exeptions import InvalidMove
-
-from .actionStack import Action, ActionStack
-
-#TO DO refactorizar, cambiar el waiting player y current a enemy y player para mejor legibilidad
+from domain.game.game import Game
+from domain.game.player import Player, Deck
+from domain.cards import Card, CardSpace
 
 
-class Game:
+class GameService:
+    """
+    Fachada/API del motor. Traduce llamadas del exterior (CLI, FastAPI, tests)
+    a operaciones del dominio. NO contiene reglas del juego.
+    Stateless: recibe `game` como parámetro en cada operación.
+    """
 
-    def __init__(self):
-        self.current_player:Player
-        self.waiting_player:Player
-        self.turn_number: int = 1
-        self.player_1:Player
-        self.player_2:Player
+    # ---------------- Casos de uso ----------------
 
-        self.phase_manager = PhaseManager()
+    def start_game(self, deck1: Deck, deck2: Deck) -> Game:
+        p1 = Player("Player 1", deck1)
+        p2 = Player("Player 2", deck2)
+        game = Game()
+        game.start_game(p1, p2)
+        return game
 
-        self.event_manager = EventManager()
-        self.camp = Camp()
+    def play_card(self, game: Game, player_id: int, card_index: int, card_space_index: int) -> None:
+        player = self._resolve_player(game, player_id)
+        card = player.hand[card_index]
+        card_space = self._resolve_card_space(game, player_id, card_space_index)
+        game.play_card(card, player, card_space)
 
-        self.action_stack = ActionStack()
-        
+    def activate_effect(self, game: Game, player_id: int, card_index: int, effect_name: str) -> None:
+        player = self._resolve_player(game, player_id)
+        card = player.hand[card_index]
+        game.activate_effect(card, player, effect_name)
 
-    #funcion que se llama al inicializar una partida
-    def start_game(self, player1:Player, player2:Player):
-        self.player_1 = player1
-        self.player_2 = player2
+    def end_turn(self, game: Game) -> None:
+        game.change_turn()
 
-        self.current_player = self.player_1
-        self.waiting_player = self.player_2
+    def is_game_over(self, game: Game) -> bool:
+        # tu lógica real (por ejemplo, si algún jugador no tiene cartas)
+        return False
 
-        #unicamente para tests
-        self.player_1.draw(5)
-        self.player_2.draw(5)
+    # ---------------- Consultas (DTOs) ----------------
 
+    def get_state(self, game: Game) -> dict:
+        return {
+            "turn_number": game.turn_number,
+            "current_player_id": self._current_player_id(game),
+            "current_phase": type(game.get_current_fase()).__name__,
+            "players": [
+                self._player_dto(p, game)
+                for p in (game.player_1, game.player_2)
+            ],
+        }
 
-        main_phase = MainPhase(self.phase_manager, self)
-        
-        self.phase_manager.current_state = main_phase
-        self.phase_manager.start_state_machine(self)
+    # ---------------- Helpers privados ----------------
 
-        return self
-        
+    def _resolve_player(self, game: Game, player_id: int) -> Player:
+        if player_id == 1: return game.player_1
+        if player_id == 2: return game.player_2
+        raise ValueError(f"player_id inválido: {player_id}")
 
-    #se encarga de cambiar el turno y decirle a los players si es su turno
-    def change_turn(self):
-        if self.current_player is self.player_1:
-            self.current_player = self.player_2
-            self.waiting_player = self.player_1
+    def _resolve_card_space(self, game: Game, player_id: int, index: int) -> CardSpace:
+        # ajusta según cómo estén representados los card spaces
+        # por ejemplo: player.field[index] o game.camp.get(...)["player_1"][index]
+        player = self._resolve_player(game, player_id)
+        return player.field[index]   # <-- ajústalo a tu modelo real
 
-        else:
-            self.current_player = self.player_1
-            self.waiting_player = self.player_2
-            self.turn_number += 1
+    def _current_player_id(self, game: Game) -> int:
+        return 1 if game.current_player is game.player_1 else 2
 
-    #esta funcion se llama desde el game service para jugar la carta, valida si la carta es
-    #jugable, coloca la carta y llama al efecto on_place
-    def play_card(self, card:Card, player:Player, card_space:CardSpace):
-        self.validate_card_played(card, player, card_space)
-        card_space.set_card(card)
-        ctxt = {}
-        card.on_place_card(ctxt, self.create_game_interface())
-        
+    def _player_dto(self, player: Player, game: Game) -> dict:
+        return {
+            "name": player.name,
+            "hand": [self._card_dto(c) for c in player.hand],
+            "field": [self._card_dto(c) for c in player.field],
+            "is_current": player is game.current_player,
+        }
 
-    def activate_effect(self, card:Card, player:Player, effect_name:str):
-        card.activate_effect(effect_name)
-        
-
-    def finish_game():
-        pass
-
-    def push_action(self, action:Action):
-        self._action_stack.push(action)
-
-    def create_game_interface(self)->GameInterface:
-        return GameInterface(self)
-
-
-    #valida si se puede jugar la carta
-    #esto deberia de ir en su clase propia
-    def validate_card_played(self, card:Card, player:Player, card_space:CardSpace):
-        if player is not self.current_player:
-            raise InvalidMove("Is not your turn")
-        if not player.is_card_in_hand(card):
-            raise InvalidMove("You dont have this card in your hand")
-        if not card_space.is_empty():
-            raise InvalidMove("No space to play card")
-        #if not self.phase_manager.current_state == MainPhase()
-        #    raise InvalidMove("Your not in preparation day")
-        
-    
-    # region getters
-
-
-    def get_player_id(self)->int:
-        if self.current_player is self.player_1: return 1
-        else: return 2
-
-    def get_current_fase(self):
-        return self.phase_manager.current_state
-        
-    def get_player_camp(self)->dict:
-        current_camp = self.camp.get_camp()
-
-        if self.get_player_id == 1:
-            return current_camp["player_1"]
-        else:
-            return current_camp["player_2"]
-        
-    
-    def get_enemy_camp(self)->dict:
-        current_camp = self.camp.get_camp()
-
-        if self.get_player_id == 2:
-            return current_camp["player_1"]
-        else:
-            return current_camp["player_2"]
-        
-    # endregion
+    def _card_dto(self, card: Card) -> dict:
+        return {
+            "name": getattr(card, "name", str(card)),
+            "id": getattr(card, "id", None),
+        }

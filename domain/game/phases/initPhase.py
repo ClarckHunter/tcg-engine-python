@@ -1,4 +1,4 @@
-from phase import Phase
+from .phase import Phase
 
 class InitialPhase(Phase):
     def __init__(self, state_machine, game):
