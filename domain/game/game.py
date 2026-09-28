@@ -22,7 +22,7 @@ class Game:
         self.event_manager = EventManager()
         self.camp = Camp()
 
-        self.action_stack = ActionStack()
+        self._action_stack = ActionStack()
         
 
     #funcion que se llama al inicializar una partida

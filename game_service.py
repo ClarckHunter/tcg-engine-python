@@ -2,6 +2,12 @@ from domain.game import Game
 
 class GameService:
 
+    """
+    Fachada/API del motor. Traduce llamadas del exterior (CLI, FastAPI, tests)
+    a operaciones del dominio. NO contiene reglas del juego.
+    Stateless: recibe `game` como parámetro en cada operación.
+    """
+
     def start_game(self, player1, player2)->Game:
         game = Game(player1, player2)
 

@@ -2,7 +2,7 @@ from domain.game import Game
 from domain.game.player import Player
 from game_builder import GameBuilder
 from domain.cards import Card
-from cli.main_menu import MainMenu
+from cli.menus import MainMenu
 
 card = Card("Card 1", "Description of Card 1", 5, 3, 2)
 
