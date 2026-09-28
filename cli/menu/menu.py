@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from cli.context import AppContext
+from cli import AppContext
 
 class Menu(ABC):
     def __init__(self, context: AppContext):

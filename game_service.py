@@ -1,4 +1,5 @@
 from domain.game import Game
+from domain.game.player import Player
 
 class GameService:
 
@@ -8,10 +9,10 @@ class GameService:
     Stateless: recibe `game` como parámetro en cada operación.
     """
 
-    def start_game(self, player1, player2)->Game:
-        game = Game(player1, player2)
+    def start_game(self)->Game:
+        game = Game()
 
-        game.start_game(player1, player2)
+        game.start_game()
 
         return game
 

@@ -1,14 +1,9 @@
-from domain.game import Game
-from domain.game.player import Player
-from game_builder import GameBuilder
-from domain.cards import Card
-from cli.menus import MainMenu
+from cli import AppContext, MenuRouter
 
-card = Card("Card 1", "Description of Card 1", 5, 3, 2)
+def main():
+    context = AppContext()
+    router = MenuRouter(context)
+    router.run()
 
-
-game_builder = GameBuilder()
-game = game_builder.add_player("Player 1", 1)
-
-main_menu = MainMenu()
-main_menu.display_menu()
+if __name__ == "__main__":
+    main()
