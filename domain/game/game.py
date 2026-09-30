@@ -33,6 +33,8 @@ class Game:
         self.current_player = self.player_1
         self.waiting_player = self.player_2
 
+        self.state_machine.start(self)
+
         return self
         
 

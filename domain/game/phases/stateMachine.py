@@ -17,7 +17,7 @@ class StateMachine:
     def __init__(self):
         self.current_state:Phase
  
-    def start_state_machine(self, game):
+    def start(self, game):
         self.current_state.start()
 
     def change_state(self, new_phase:Phase):
