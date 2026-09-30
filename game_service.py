@@ -1,5 +1,6 @@
 from domain.game import Game
 from domain.game.player import Player
+from deck_service import DeckService
 
 class GameService:
 
@@ -12,7 +13,15 @@ class GameService:
     def start_game(self)->Game:
         game = Game()
 
-        game.start_game()
+        player_1 = Player(
+            DeckService.create_test_deck()
+        )
+
+        player_2 = Player(
+            DeckService.create_test_deck()
+        )
+
+        game.start_game(player_1, player_2)
 
         return game
 
@@ -31,3 +40,6 @@ class GameService:
     def change_turn(self, game:Game):
         game.change_turn()
         return game
+
+    def get_current_player_hand(self, game:Game):
+        return game.current_player.hand

@@ -1,4 +1,4 @@
-from .menu import MainMenu, Menu, NewGameMenu
+from .menu import MainMenu, Menu, NewGameMenu, InitPhaseMenu
 from .context import AppContext
 from .routes import Route
 
@@ -8,6 +8,7 @@ class MenuRouter:
         self.menus = {
             Route.MAIN_MENU: MainMenu(context),
             Route.NEW_GAME_MENU: NewGameMenu(context),
+            Route.INIT_PHASE_MENU: InitPhaseMenu(context)
             #Route.CHANGE_DECK_MENU: Menu(context),  # Placeholder for the change deck menu
         }
         self.current_menu = Route.MAIN_MENU

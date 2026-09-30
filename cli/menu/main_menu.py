@@ -12,14 +12,13 @@ class MainMenu(Menu):
 
     def handle(self)->str:
         cmd = input("> ").strip().split()
-        if not cmd:
-            return Route.MAIN_MENU
-
-        if cmd[0] == "1":
-            return Route.NEW_GAME_MENU
-
-        if cmd[0] == "2":
-            return Route.CHANGE_DECK_MENU
-
-        if cmd[0] == "4":
-            return "exit"
+        
+        match cmd:
+            case ["1"]:
+                return Route.NEW_GAME_MENU
+            case ["2"]:
+                return Route.CHANGE_DECK_MENU
+            case ["4"]:
+                return Route.EXIT
+            case _:
+                return Route.MAIN_MENU
